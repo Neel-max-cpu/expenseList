@@ -1,4 +1,5 @@
 npm i react-icons axios moment emoji-picker-react react-router-dom recharts react-hot-toast
 
+regex - to validate stuff (imp)
 
 tailwindCSS.experimental.configFile -- search in the setting, and change accordingly for react/angular

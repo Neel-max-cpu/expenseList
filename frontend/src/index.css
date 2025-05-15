@@ -1,12 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Delius&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss";
 
-
-
-.myFont{
-    font-family: "Delius";
-}
-
 @layer base{
     :root{
         --font-display: "Poppins", "Delius", "san-serif";
@@ -24,4 +18,18 @@
         overflow-x: hidden;
     }
 
+}
+
+
+.myFont{
+    font-family: "Delius";
+}
+
+
+.input-box{
+    @apply w-full flex justify-between gap-3 text-sm text-white bg-gray-900 rounded px-4 py-3 mb-4 mt-3 border border-gray-500 outline-none;
+}
+
+.btn-primary{
+    @apply w-full text-sm font-medium text-white bg-violet-500 shadow-lg shadow-purple-600/5 p-[10px] rounded-md my-1 hover:bg-purple-200 hover:cursor-pointer hover:text-purple-600
 }

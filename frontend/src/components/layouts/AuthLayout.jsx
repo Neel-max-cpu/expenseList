@@ -10,17 +10,20 @@ const AuthLayout = ({children}) => {
             {children}
         </div>
 
-        <div className='hidden md:block w-[40vw] h-screen bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative'>
+        <div className='hidden md:block w-[40vw] h-screen bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative'>
             <div className="w-48 h-48 rounded-[48px] bg-purple-600 absolute -top-7 -left-5"/>
+            <div className="w-48 h-48 rounded-[48px] bg-red-600 absolute -top-7 -right-5"/>
             <div className="w-48 h-56 rounded-[48px] border-[20px] border-fuchsia-600 absolute top-[30%] -right-10"/>
             <div className="w-48 h-48 rounded-[40px] bg-violet-500 absolute -bottom-7 -left-5"/>
+            <div className="w-32 h-48 rounded-[48px] border-[20px] border-green-600 absolute top-[25%] -left-10"/>            
+    
 
             <div className="grid grid-col-1 z-20">
                 <StatsInfoCard
                     icon={<LuTrendingUpDown/>}
                     label = "Track your Income & Expeses"
                     value="430,000"
-                    color="bg-primary"            
+                    color="bg-purple-500"            
                 />
 
             </div>
@@ -43,8 +46,8 @@ const StatsInfoCard = ({icon, label, value, color}) =>{
                 {icon}
             </div>
             <div>
-            <div className="">{label}</div>
-            <span className="">${value}</span>
+            <div className="text-xs text-gray-500 mb-1">{label}</div>
+            <span className="text-black ">${value}</span>
             </div>
         </div>
     )
