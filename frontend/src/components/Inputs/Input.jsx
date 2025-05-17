@@ -39,7 +39,6 @@ const Input = ({value, onChange, label, placeholder, type}) => {
                         }
                     </>
                 )
-
                 }
 
 
