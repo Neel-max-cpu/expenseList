@@ -1,5 +1,18 @@
+frontend ---
 npm i react-icons axios moment emoji-picker-react react-router-dom recharts react-hot-toast
 
+backend ---
+npm i express jsonwebtoken mongoose dotenv cors bcryptjs multer xlsx cors
+(Multer is a Node.js middleware used for handling multipart/form-data, which is primarily used for uploading files. It is commonly used with Express.js to simplify the process of handling file uploads.)
+ "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+npm i nodemon --save-dev 
+(means it will go to the devDependencies not in production)
+
 regex - to validate stuff (imp)
+
+TO CREATE jwt_secret key run this command node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 
 tailwindCSS.experimental.configFile -- search in the setting, and change accordingly for react/angular
