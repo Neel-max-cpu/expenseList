@@ -9,7 +9,7 @@ export default async function protect(req, res, next) {
         const decode = jwt.verify(token, process.env.JWT_SECRET);
         // Exclude the password field from the result when querying the database.
         req.user = await User.findById(decode.id).select("-password");
-        console.log(decode.id);
+        // console.log(decode.id);
         // console.log(decode._id);     //see generate token {id} if want _id then {_id}
         next();
     } catch (err) {
