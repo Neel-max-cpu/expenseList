@@ -7,7 +7,7 @@ import { transcode } from 'buffer';
 export async function getDashboardData(req, res) {
     try {
         const userId = req.user.id;
-        const userObjectId = new Types.ObjectId(String(userId));
+        const userObjectId = new Types.ObjectId(String(userId));    //converted into objectid
 
         // fetch total Income and expense
         const totalIncome = await Income.aggregate([
@@ -29,28 +29,34 @@ export async function getDashboardData(req, res) {
         // get income transaction in the last 60days
         const last60DaysIncomeTransaction = await Income.find({
             userId, 
-            date:{$gte: new Date(Date.now() - 60 *24*60*60*1000)},
-        }).sort({date:-1});
+            date:{$gte: new Date(Date.now() - 60 *24*60*60*1000)},      //gte = greater than or equal to 60days
+        }).sort({date:-1}); 
 
 
         // get total income for last 60 days
         const incomeLast60Days = last60DaysIncomeTransaction.reduce(
-            (sum, transaction)=> sum+transaction.amount,0
+            (sum, transaction)=> sum + transaction.amount, 0               //sum starts at 0
         );
         
         //get expense transaction in the last 30days
         const last30DaysExpenseTransaction = await Expense.find({
             userId,
-            date:{$gte:new Date(Date.now() - 30 *24*60*60*1000)}
+            date:{$gte:new Date(Date.now() - 30 *24*60*60*1000)}        //gte = greater than or equal to 30days
         }).sort({date:-1});
 
+        
         //get total expense for last 30days
         const expenseLast30Days = last30DaysExpenseTransaction.reduce(
-            (sum, transaction)=>sum+transaction.amount, 0   
+            (sum, transaction)=>sum + transaction.amount, 0   
         )
 
 
         // fetch last 5 transaction(income + expense)
+        /*
+            const a = [1, 2];
+            const b = [3, 4];
+            const combined = [...a(income), ...b(expense)]; // => [1, 2, 3, 4]
+        */
         const lastTransaction = [
             ...(await Income.find({userId}).sort({date:-1}).limit(5)).map(
                 (txn)=>({
@@ -65,8 +71,7 @@ export async function getDashboardData(req, res) {
                 })
             ),
         ].sort((a,b)=>b.date - a.date);     //sort latest first
-
-
+        
         // final response
         res.status(200).json({
             totalBalance:(totalIncome[0]?.total || 0) - (totalExpense[0]?.total || 0),
