@@ -5,6 +5,7 @@ import dotenv from 'dotenv'
 import {connectDB} from './config/db.js'
 import authRoutes from './routes/auth.routes.js'
 import incomeRoutes from './routes/income.routes.js'
+import expenseRoutes from './routes/expense.routes.js'
 
 
 // for upload --
@@ -33,6 +34,7 @@ connectDB();
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/income", incomeRoutes);
+app.use("/api/v1/expense", expenseRoutes);
 
 // server upload folder --- 
 // app.use("/uploads", express.static(path.join(__dirname, "uploads")));       // for commonjs works directly

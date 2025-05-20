@@ -67,8 +67,8 @@ export async function downloadIncomeExcel(req, res) {
             Date: item.date,
         }));
         
-        const wb = xlsx.utils.book_new();
-        const ws = xlsx.utils.json_to_sheet(data);
+        const wb = xlsx.utils.book_new();           //wb - workbook
+        const ws = xlsx.utils.json_to_sheet(data);  // ws - worksheet
         xlsx.utils.book_append_sheet(wb, ws, "Income");
         xlsx.writeFile(wb, "income_details.xlsx");
         res.download("income_details.xlsx");
