@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import {Link, useNavigate} from 'react-router-dom'
 import Input from "../../components/Inputs/Input";
-import { validateEmail } from "../../utils/helper";
+import { validateEmail, validatePass } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
@@ -26,6 +26,12 @@ const Login = () => {
       setError("Please a valid Email!");
       return;
     }
+
+    if(!validatePass(password)){
+      setError("Password must be atleast 6 Characters long!");
+      return;      
+    }
+
 
     if(!password){
       setError("Please enter the password!");

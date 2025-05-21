@@ -1,10 +1,14 @@
-/* eslint-disable no-unused-vars */
-import React, { useState } from "react";
+
+import React, { useContext, useState } from "react";
 import AuthLayout from "../../components/layouts/AuthLayout";
 import { Link, useNavigate } from 'react-router-dom'
 import Input from "../../components/Inputs/Input";
-import { validateEmail } from "../../utils/helper";
+import { validateEmail, validatePass } from "../../utils/helper";
 import ProfilePhotoSelector from "../../components/Inputs/ProfilePhotoSelector";
+import axiosInstance from "../../utils/axiosInstance";
+import { API_PATHS } from "../../utils/apiPaths";
+import { UserContext } from "../../context/userContext";
+import uploadImage from "../../utils/uploadImage";
 
 const SignUp = () => {
 
@@ -15,6 +19,8 @@ const SignUp = () => {
 
   const [error, setError] = useState(null);
 
+  const {updateUser} = useContext(UserContext);
+
   const navigate = useNavigate();
 
 
@@ -22,7 +28,7 @@ const SignUp = () => {
   const handleSignUp = async (e) => {
     e.preventDefault();
     
-    let profileImageUrl = "";
+    let profileImgUrl = "";
 
     if(!fullName){
       setError("Please enter your name!");
@@ -32,6 +38,11 @@ const SignUp = () => {
     if(!validateEmail(email)){
       setError("Please a valid email address!");
       return;
+    }
+
+    if(!validatePass(password)){
+      setError("Password must be atleast 6 Characters long!");
+      return;      
     }
 
 
@@ -45,6 +56,36 @@ const SignUp = () => {
 
 
     //signup api call
+    try {
+
+      // upload image if present --
+      if(profilePic){
+        const imgUploadRes = await uploadImage(profilePic);
+        profileImgUrl = imgUploadRes.imageUrl || "";
+      }
+
+      const response = await axiosInstance.post(API_PATHS.AUTH.REGISTER,{
+        fullName,
+        email,
+        password,
+        profileImgUrl,
+      });
+
+      const {token, user} = response.data;
+
+      if(token){
+        localStorage.setItem("token", token);
+        updateUser(user);
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if(error.response && error.response.data.message){
+        setError(error.response.data.message);
+      }
+      else{
+        setError("Something went wrong. Please Try again!");
+      }
+    }
   }
 
 
