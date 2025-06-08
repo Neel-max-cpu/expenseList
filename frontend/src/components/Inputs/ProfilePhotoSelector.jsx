@@ -42,10 +42,10 @@ const ProfilePhotoSelector = ({image, setImage}) => {
             
             {
                 !image ? (
-                    <div className=" w-20 h-20 flex items-center justify-center bg-gray-800 rounded-full relative">
+                    <div className=" w-20 h-20 flex items-center justify-center bg-purple-100 rounded-full relative">
                         <LuUser className='text-4xl text-blue-400'/>
                         <button 
-                            className="w-8 h-8 flex items-center justify-center bg-blue-600 rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer hover:bg-blue-700" 
+                            className="w-8 h-8 flex items-center justify-center bg-primary rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer" 
                             type='button' 
                             onClick={onChooseFile}
                         >
@@ -63,7 +63,7 @@ const ProfilePhotoSelector = ({image, setImage}) => {
                         <button 
                             type='button' 
                             onClick={handleRemoveImage} 
-                            className="w-8 h-8 flex items-center justify-center bg-red-600 rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer hover:bg-red-700"
+                            className="w-8 h-8 flex items-center justify-center bg-red-600 rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer"
                         >
                             <LuTrash2 className=''/>
                         </button>

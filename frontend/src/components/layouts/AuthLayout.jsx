@@ -7,11 +7,11 @@ const AuthLayout = ({children}) => {
   return (
     <div className='flex'>
         <div className='w-screen h-screen md:w-[60vw] px-12 pt-8 pb-12'>
-            <h2 className='text-lg font-bold text-white'>Expese Tracker</h2>
+            <h2 className='text-lg font-bold text-black'>Expese Tracker</h2>
             {children}
         </div>
 
-        <div className='hidden md:block w-[40vw] h-screen bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative'>
+        <div className='hidden md:block w-[40vw] h-screen bg-violet-50 bg-auth-bg-img bg-cover bg-no-repeat bg-center overflow-hidden p-8 relative'>
             <div className="w-48 h-48 rounded-[48px] bg-purple-600 absolute -top-7 -left-5"/>
             <div className="w-48 h-48 rounded-[48px] bg-red-600 absolute -top-7 -right-5"/>
             <div className="w-48 h-56 rounded-[48px] border-[20px] border-fuchsia-600 absolute top-[30%] -right-10"/>
@@ -24,7 +24,7 @@ const AuthLayout = ({children}) => {
                     icon={<LuTrendingUpDown/>}
                     label = "Track your Income & Expeses"
                     value="430,000"
-                    color="bg-purple-500"            
+                    color="bg-primary"            
                 />
 
             </div>
@@ -48,7 +48,7 @@ const StatsInfoCard = ({icon, label, value, color}) =>{
             </div>
             <div>
             <div className="text-xs text-gray-500 mb-1">{label}</div>
-            <span className="text-black ">${value}</span>
+            <span className="text-[20px] text-black ">${value}</span>
             </div>
         </div>
     )

@@ -10,16 +10,23 @@
 
     html{
         font-family: var(--font-display);
-        color: white
+        color: black
     }
 
     body{
-        background-color: black;
+        background-color: #fcfbfc;
         overflow-x: hidden;
     }
 
 }
 
+.bg-primary{
+    @apply bg-purple-500;
+}
+
+.text-primary{
+    @apply text-purple-500;
+}
 
 .myFont{
     font-family: "Delius";
@@ -27,9 +34,9 @@
 
 
 .input-box{
-    @apply w-full flex justify-between gap-3 text-sm text-white bg-gray-900 rounded px-4 py-3 mb-4 mt-3 border border-gray-500 outline-none;
+    @apply w-full flex justify-between gap-3 text-black text-sm bg-slate-100 rounded px-4 py-3 mb-4 mt-3 border border-slate-200 outline-none;
 }
 
 .btn-primary{
-    @apply w-full text-sm font-medium text-white bg-violet-500 shadow-lg shadow-purple-600/5 p-[10px] rounded-md my-1 hover:bg-purple-200 hover:cursor-pointer hover:text-purple-600
+    @apply w-full text-sm font-medium bg-violet-500 shadow-lg shadow-purple-600/5 p-[10px] rounded-md my-1 hover:bg-purple-600/15 hover:cursor-pointer hover:text-purple-600
 }
