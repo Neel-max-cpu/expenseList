@@ -27,3 +27,13 @@ export const getInitials = (name)=>{
     return initials.toUpperCase();
 };
 
+export const addThousandsSeparator = (num)=>{
+    if(num == null || isNaN(num)) return "";
+
+    const[integerPart, fractionalPart] = num.toString().split(".");
+    //regex command to give , to number eg- 10000 = 10,000
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3}) +(?!\d))/g, ",");
+
+    return fractionalPart ?
+    `${formattedInteger}.${fractionalPart}` : formattedInteger;
+};
