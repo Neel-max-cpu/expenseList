@@ -5,13 +5,14 @@ import { useUserAuth } from '../../hooks/useUserAuth';
 import axiosInstance from '../../utils/axiosInstance';
 import { API_PATHS } from '../../utils/apiPaths';
 import InfoCard from '../../components/Cards/InfoCard';
+import RecentTransaction from '../../components/Dashboard/RecentTransaction';
+import { addThousandsSeparator } from '../../utils/helper';
+import FinanceOverview from '../../components/Dashboard/FinanceOverview';
 
 
 // icons
 import {LuHandCoins, LuWalletMinimal} from 'react-icons/lu';
 import {IoMdCard} from 'react-icons/io'
-import { addThousandsSeparator } from '../../utils/helper';
-import RecentTransaction from '../../components/Dashboard/RecentTransaction';
 
 const Home = () => {
   useUserAuth();
@@ -51,6 +52,8 @@ const Home = () => {
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className='my-5 mx-auto'>
+        
+        {/* cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard
             icon={<IoMdCard/>}
@@ -72,12 +75,22 @@ const Home = () => {
           />
         </div>
 
+        {/* recent */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          
           <RecentTransaction
             transactions={dashboardData?.recentTransaction}
             onSeeMore={()=>navigate("/expense")}
           />
+
+          <FinanceOverview
+            totalBalance={dashboardData?.totalBalance || 0}
+            totalIncome={dashboardData?.totalIncome || 0}
+            totalExpense={dashboardData?.totalExpense || 0}
+          />
+
         </div>
+      
       </div>
     </DashboardLayout>
   )

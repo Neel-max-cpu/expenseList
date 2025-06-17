@@ -1,10 +1,9 @@
 import React from 'react'
-
 import moment from 'moment';
+import TransactionInfoCard from '../Cards/TransactionInfoCard';
 
 //icons 
 import { LuArrowRight } from 'react-icons/lu'
-import TransactionInfoCard from '../Cards/TransactionInfoCard';
 
 const RecentTransaction = ({transactions, onSeeMore}) => {
   return (
@@ -16,9 +15,8 @@ const RecentTransaction = ({transactions, onSeeMore}) => {
             </button>
         </div>
 
-        <div className="mt-6">
-            hi
-            {transactions?.slice(0,5)?.map((item)=>{
+        <div className="mt-6">            
+            {transactions?.slice(0,5)?.map((item)=>(                
                 <TransactionInfoCard
                     key={item._id}
                     title={item.type == 'expense' ? item.category : item.source}
@@ -28,7 +26,7 @@ const RecentTransaction = ({transactions, onSeeMore}) => {
                     type={item.type}
                     hideDeleteBtn
                 />
-            })}
+            ))}
         </div>
     </div>
   )
