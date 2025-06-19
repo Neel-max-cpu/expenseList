@@ -8,11 +8,12 @@ import {
     Legend,
 } from 'recharts';
 import CustomTooltip from './CustomTooltip';
+import CustomLegend from './CustomLegend';
 
-const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) => {
+const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, }) => {
     return (
         <ResponsiveContainer width="100%" height={380}>
-            <PieChart>
+            <PieChart key={data.length}>
                 <Pie
                     data={data}
                     dataKey="amount"
@@ -22,42 +23,43 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor }) =>
                     outerRadius={130}
                     innerRadius={100}
                     labelLine={false}
+                    isAnimationActive={true}
+                    animationDuration={800}
+                    animationEasing="ease-out"
                 >
                     {data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
-
                     ))}
                 </Pie>
-
                 {/* see documentation for custom - we need to send payload  */}
-                <Tooltip content={CustomTooltip} />
-                <Legend />
+                <Tooltip content={CustomTooltip} />                
+                <Legend content={CustomLegend} />                
 
                 {showTextAnchor && (
-                    <>
+                    <g>
                         <text
                             x="50%"
                             y="50%"
                             dy={-25}
-                            textAnchor='middle'
+                            textAnchor="middle"                            
                             fill="#666"
-                            fontSize="14px"
+                            fontSize="14px"                            
                         >
                             {label}
                         </text>
-
                         <text
                             x="50%"
                             y="50%"
                             dy={8}
-                            textAnchor='middle'
+                            textAnchor="middle"                            
                             fill="#333"
                             fontSize="24px"
-                            fontWeight="semi-bold"
+                            fontWeight="500"
                         >
                             {totalAmount}
                         </text>
-                    </>
+
+                    </g>
                 )}
             </PieChart>
         </ResponsiveContainer>

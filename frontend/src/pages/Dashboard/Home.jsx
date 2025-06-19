@@ -13,6 +13,7 @@ import FinanceOverview from '../../components/Dashboard/FinanceOverview';
 // icons
 import {LuHandCoins, LuWalletMinimal} from 'react-icons/lu';
 import {IoMdCard} from 'react-icons/io'
+import WorkingPieChart from '../../components/Charts/WorkingPieChart';
 
 const Home = () => {
   useUserAuth();
@@ -88,6 +89,8 @@ const Home = () => {
             totalIncome={dashboardData?.totalIncome || 0}
             totalExpense={dashboardData?.totalExpense || 0}
           />
+
+          <WorkingPieChart/>
 
         </div>
       
