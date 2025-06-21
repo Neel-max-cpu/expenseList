@@ -12,8 +12,10 @@ import CustomLegend from './CustomLegend';
 
 const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, }) => {
     return (
+        // <div style={{ width: '100%', height: 380 }}>
         <ResponsiveContainer width="100%" height={380}>
-            <PieChart key={data.length}>
+        {/* <ResponsiveContainer> */}
+            <PieChart>
                 <Pie
                     data={data}
                     dataKey="amount"
@@ -22,10 +24,7 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, }) =
                     cy="50%"
                     outerRadius={130}
                     innerRadius={100}
-                    labelLine={false}
-                    isAnimationActive={true}
-                    animationDuration={800}
-                    animationEasing="ease-out"
+                    labelLine={false}                  
                 >
                     {data.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
@@ -63,6 +62,7 @@ const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, }) =
                 )}
             </PieChart>
         </ResponsiveContainer>
+        // </div>
     )
 }
 

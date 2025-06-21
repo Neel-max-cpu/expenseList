@@ -8,12 +8,14 @@ import InfoCard from '../../components/Cards/InfoCard';
 import RecentTransaction from '../../components/Dashboard/RecentTransaction';
 import { addThousandsSeparator } from '../../utils/helper';
 import FinanceOverview from '../../components/Dashboard/FinanceOverview';
+import WorkingPieChart from '../../components/Charts/WorkingPieChart';
+import ExpenseTransaction from '../../components/Dashboard/ExpenseTransaction';
 
 
 // icons
 import {LuHandCoins, LuWalletMinimal} from 'react-icons/lu';
 import {IoMdCard} from 'react-icons/io'
-import WorkingPieChart from '../../components/Charts/WorkingPieChart';
+import Last30DaysExpenses from '../../components/Dashboard/last30DaysExpenses';
 
 const Home = () => {
   useUserAuth();
@@ -35,6 +37,7 @@ const Home = () => {
       );
 
       if(response.data){
+        console.log("✅ Dashboard data fetched:", response.data);
         setDashboardData(response.data);
       }
     } catch (error) {
@@ -44,12 +47,13 @@ const Home = () => {
     }
   };
 
+  
 
   useLayoutEffect(() => {
     fetchDashboardData();
     return ()=>{}
   },[]);
-
+  
   return (
     <DashboardLayout activeMenu="Dashboard">
       <div className='my-5 mx-auto'>
@@ -90,7 +94,17 @@ const Home = () => {
             totalExpense={dashboardData?.totalExpense || 0}
           />
 
-          <WorkingPieChart/>
+          {/* test */}
+          {/* <WorkingPieChart/> */}
+
+          <ExpenseTransaction
+            transactions={dashboardData?.last30DaysExpense?.transactions || []}
+            onSeeMore={()=>navigate("/expense")}
+          />
+
+          <Last30DaysExpenses
+            data={dashboardData?.last30DaysExpense?.transactions || []}
+          />
 
         </div>
       
