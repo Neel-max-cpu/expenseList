@@ -16,6 +16,8 @@ import ExpenseTransaction from '../../components/Dashboard/ExpenseTransaction';
 import {LuHandCoins, LuWalletMinimal} from 'react-icons/lu';
 import {IoMdCard} from 'react-icons/io'
 import Last30DaysExpenses from '../../components/Dashboard/last30DaysExpenses';
+import RecentIncomeWithCharts from '../../components/Dashboard/RecentIncomeWithCharts';
+import RecentIncome from '../../components/Dashboard/RecentIncome';
 
 const Home = () => {
   useUserAuth();
@@ -104,6 +106,17 @@ const Home = () => {
 
           <Last30DaysExpenses
             data={dashboardData?.last30DaysExpense?.transactions || []}
+          />
+
+
+          <RecentIncomeWithCharts
+            data={dashboardData?.last60DaysIncome?.transactions?.slice(0,4) || []}
+            totalIncome={dashboardData?.totalIncome || 0}
+          />
+
+          <RecentIncome
+            transactions={dashboardData?.last60DaysIncome?.transactions || []}
+            onSeeMore={()=>navigate("/income")}
           />
 
         </div>

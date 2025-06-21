@@ -51,7 +51,7 @@ const SideMenu = ({ activeMenu }) => {
           key={`menu_${index}`}
           className={`w-full flex items-center gap-4 text-[15px] hover:cursor-pointer hover:bg-purple-100 ${
             activeMenu == item.label ? "text-white bg-primary" : ""
-          } py-3 px-6 rounded-lg mb-3 text-black font-medium hover:translate-x-[3px]`}
+          } py-3 px-6 rounded-lg mb-3 text-black font-medium hover:translate-x-[3px] transition duration-300`}
           onClick={() => handleClick(item.path)}
         >
           <item.icon className="text-xl" />
