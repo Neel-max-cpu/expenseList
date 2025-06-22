@@ -15,7 +15,7 @@ const CustomBarChart = ({data}) => {
 
     //altenate colors
     const getBarColor=(index)=>{
-        return index%2==0? "#875cf5" : "#cfbefb";
+        return index%2===0? "#875cf5" : "#cfbefb";
     };
 
     const CustomTooltip = ({active, payload}) =>{

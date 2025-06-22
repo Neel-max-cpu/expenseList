@@ -15,13 +15,15 @@ export const useUserAuth = ()=>{
 
         const fetchUserInfo = async()=>{
             try {
+                // console.log("🧠 Fetching user info...");
                 const response = await axiosInstance.get(API_PATHS.AUTH.GET_USER_INFO);
 
                 if(isMounted && response.data){
                     updateUser(response.data);                    
                 }
+                // console.log("✅ User info fetched:", response.data);
             } catch (error) {
-                console.log("Failed to fetch user info: ", error);
+                // console.log("Failed to fetch user info: ", error);
                 if(isMounted){
                     clearUser();
                     navigate("/login");

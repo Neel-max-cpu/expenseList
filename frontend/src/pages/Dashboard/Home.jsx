@@ -1,4 +1,4 @@
-import React , {useLayoutEffect, useState} from 'react'
+import React , {useEffect, useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import DashboardLayout from '../../components/layouts/DashboardLayout'
 import { useUserAuth } from '../../hooks/useUserAuth';
@@ -51,7 +51,7 @@ const Home = () => {
 
   
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     fetchDashboardData();
     return ()=>{}
   },[]);
