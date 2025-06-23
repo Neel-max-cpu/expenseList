@@ -25,7 +25,7 @@ const CustomBarChart = ({data}) => {
                     <p className="text-xs font-semibold text-purple-800 mb-1">{payload[0].payload.category} </p>
                     <p className="text-sm text-gray-600">
                         Amount:{" "} 
-                        <span className='text-sm font-medium text-gray-900'> ${payload[0].payload.amount} </span>
+                        <span className='text-sm font-medium text-gray-900'> Rs. {payload[0].payload.amount} </span>
                     </p>
                 </div>  
             );

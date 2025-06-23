@@ -47,7 +47,7 @@ const WorkingPieChart = () => {
             fontSize="24px"
             fontWeight="bold"
           >
-            $700
+            Rs700
           </text>
           <text
             x="50%"

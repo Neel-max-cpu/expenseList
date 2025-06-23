@@ -6,7 +6,7 @@ import { LuUtensils, LuTrendingUp, LuTrendingDown, LuTrash2 } from 'react-icons/
 // import { LuUtensils } from "react-icons/lu";
 
 
-const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn }) => {
+const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn, onDelete }) => {
 
   const getAmountStyles = ()=>{
     return type === 'income' ? "bg-green-50 text-green-500" : "bg-red-50 text-red-500";
@@ -35,7 +35,7 @@ const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn })
         
         <div className="flex items-center gap-2">
           {!hideDeleteBtn && (
-            <button className="text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onClick={onDelete}>
+            <button className="text-gray-400 hover:-translate-y-[3px] duration-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onClick={onDelete}>
               <LuTrash2 size={18}/>
             </button>
           )}
@@ -43,7 +43,7 @@ const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn })
           {/* amount */}
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}>
             <h6 className='text-xs font-medium'>
-              {type === "income" ? "+" : "-"} ${amount}
+              {type === "income" ? "+" : "-"} Rs. {amount}
             </h6>
             {type === "income" ? <LuTrendingUp/> : <LuTrendingDown/>}
           </div>          
