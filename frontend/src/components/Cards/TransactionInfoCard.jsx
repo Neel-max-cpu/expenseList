@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+import { addThousandsSeparator } from '@/utils/helper';
 import React from 'react'
 
 //icons
@@ -12,6 +13,7 @@ const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn, o
     return type === 'income' ? "bg-green-50 text-green-500" : "bg-red-50 text-red-500";
   }
 
+  let amt = addThousandsSeparator(amount)
 
 
   return (
@@ -43,7 +45,7 @@ const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn, o
           {/* amount */}
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}>
             <h6 className='text-xs font-medium'>
-              {type === "income" ? "+" : "-"} Rs. {amount}
+              {type === "income" ? "+" : "-"} Rs. {amt}
             </h6>
             {type === "income" ? <LuTrendingUp/> : <LuTrendingDown/>}
           </div>          

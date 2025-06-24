@@ -10,14 +10,15 @@ import { addThousandsSeparator } from '../../utils/helper';
 import FinanceOverview from '../../components/Dashboard/FinanceOverview';
 import WorkingPieChart from '../../components/Charts/WorkingPieChart';
 import ExpenseTransaction from '../../components/Dashboard/ExpenseTransaction';
+import AllTransaction from '../../components/Dashboard/AllTransaction';
+import Last30DaysExpenses from '../../components/Dashboard/last30DaysExpenses';
+import RecentIncomeWithCharts from '../../components/Dashboard/RecentIncomeWithCharts';
+import RecentIncome from '../../components/Dashboard/RecentIncome';
 
 
 // icons
 import {LuHandCoins, LuWalletMinimal} from 'react-icons/lu';
 import {IoMdCard} from 'react-icons/io'
-import Last30DaysExpenses from '../../components/Dashboard/last30DaysExpenses';
-import RecentIncomeWithCharts from '../../components/Dashboard/RecentIncomeWithCharts';
-import RecentIncome from '../../components/Dashboard/RecentIncome';
 
 const Home = () => {
   useUserAuth();
@@ -25,6 +26,8 @@ const Home = () => {
   const navigate = useNavigate();
 
   const [dashboardData, setDashboardData] = useState(null);
+  const [montlySummary, setMontlySummary] = useState(null);
+  
   const [loading, setLoading] = useState(false);
   
   const fetchDashboardData = async ()=>{
@@ -49,10 +52,28 @@ const Home = () => {
     }
   };
 
+  const fetchMontlySummary = async()=>{
+    if(loading) return;
+
+    try {
+      const response = await axiosInstance.get(`${API_PATHS.DASHBOARD.GET_MONTHLY_SUMMARY}`);
+
+      if(response.data){
+        console.log("✅ Dashboard montly summary:", response.data);
+        setMontlySummary(response.data);
+      }
+    } catch (error) {
+      console.log("Something went wrong. Please try again.", error)
+    } finally{
+      setLoading(false);
+    }
+  }
+
   
 
   useEffect(() => {
     fetchDashboardData();
+    fetchMontlySummary();
     return ()=>{}
   },[]);
   
@@ -64,21 +85,30 @@ const Home = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <InfoCard
             icon={<IoMdCard/>}
-            label="Total Balance"
+            label="Total Balance LifeTime"
             value={addThousandsSeparator(dashboardData?.totalBalance || 0 )}
             color="bg-primary"
           />
           <InfoCard
             icon={<LuWalletMinimal/>}
-            label="Total Income"
+            label="Total Income LifeTime"
             value={addThousandsSeparator(dashboardData?.totalIncome || 0 )}
             color="bg-orange-500"
           />
           <InfoCard
             icon={<LuHandCoins/>}
-            label="Total Expense"
+            label="Total Expense LifeTime"
             value={addThousandsSeparator(dashboardData?.totalExpense || 0 )}
             color="bg-red-500"
+          />
+        </div>
+
+        {/* bar chart of income and expnese */}
+        <div className="flex flex-col mt-5">
+          <AllTransaction
+            montlySummary={montlySummary || []}    
+            onSeeIncome={()=>navigate("/income")}        
+            onSeeExpense={()=>navigate("/expense")}        
           />
         </div>
 

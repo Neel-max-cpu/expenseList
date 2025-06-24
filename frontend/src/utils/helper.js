@@ -31,13 +31,21 @@ export const getInitials = (name)=>{
 
 export const addThousandsSeparator = (num)=>{
     if(num == null || isNaN(num)) return "";
-
+    
     const[integerPart, fractionalPart] = num.toString().split(".");
+    /*
     //regex command to give , to number eg- 10000 = 10,000
-    const formattedInteger = integerPart.replace(/\B(?=(\d{3}) +(?!\d))/g, ",");
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
     return fractionalPart ?
     `${formattedInteger}.${fractionalPart}` : formattedInteger;
+    */
+
+    const lastThree = integerPart.slice(-3);
+    const otherDigits = integerPart.slice(0, -3);
+    const formatted = otherDigits.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + (otherDigits ? "," : "") + lastThree;
+
+    return fractionalPart ? `${formatted}.${fractionalPart}` : formatted;
 };
 
 
@@ -71,3 +79,29 @@ export const prepareExpenseLineChartData = (data=[])=>{
     }))
     return chartData;
 }
+
+
+export const prepareMonthlySummary = (data = []) => {
+  const monthNames = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
+  const result = monthNames.map((monthName) => {
+    const entry = data.find(item => item.month === monthName);
+
+    const income = Number(entry?.income) || 0;
+    const expense = Number(entry?.expense) || 0;
+
+    return {
+      month: monthName,
+      income,
+      expense,
+      notransaction: income === 0 && expense === 0
+    };
+  });
+//   console.table(result);
+
+  return result;
+};
+

@@ -10,7 +10,7 @@ import {
 import CustomTooltip from './CustomTooltip';
 import CustomLegend from './CustomLegend';
 
-const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, }) => {
+const CustomPieChart = ({ data, label, totalAmount, colors, showTextAnchor, }) => {    
     return (
         // <div style={{ width: '100%', height: 380 }}>
         <ResponsiveContainer width="100%" height={380}>

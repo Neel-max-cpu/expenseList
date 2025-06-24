@@ -1,7 +1,7 @@
 import Income from '../models/Income.models.js';
 import Expense from '../models/Expense.models.js';
 import {isValidObjectId, Types} from 'mongoose';
-import { transcode } from 'buffer';
+import moment from "moment";
 
 // dashboard data
 export async function getDashboardData(req, res) {
@@ -90,5 +90,51 @@ export async function getDashboardData(req, res) {
 
     } catch (err) {
         res.status(500).json({message:"Server error!", err});
+    }
+}
+
+
+export async function getMonthlySummary(req, res) {
+    try {
+        const userId = req.user._id;
+        const oneYearAgo = moment().subtract(12, 'months').startOf('month').toDate();
+
+         const incomeData = await Income.aggregate([
+            { $match: { userId, date: { $gte: oneYearAgo } } },
+            {
+                $group: {
+                _id: { $month: "$date" },
+                income: { $sum: "$amount" }
+                }
+            }
+        ]);
+
+        const expenseData = await Expense.aggregate([
+            { $match: { userId, date: { $gte: oneYearAgo } } },
+            {
+                $group: {
+                    _id: { $month: "$date" },
+                    expense: { $sum: "$amount" }
+                }
+            }
+        ]);
+
+        // Combine income and expense into one array
+        const result = Array.from({ length: 12 }).map((_, i) => {
+            const monthIndex = i + 1; // 1-12
+            const income = incomeData.find(d => d._id === monthIndex)?.income || 0;
+            const expense = expenseData.find(d => d._id === monthIndex)?.expense || 0;
+
+            return {
+                month: moment().month(i).format("MMM"),
+                income,
+                expense
+            };
+        });
+
+        res.json(result);
+    } catch (error) {
+        console.error(err);
+        res.status(500).json({ message: "Server error while generating monthly summary" });
     }
 }
