@@ -11,7 +11,7 @@ import FinanceOverview from '../../components/Dashboard/FinanceOverview';
 import WorkingPieChart from '../../components/Charts/WorkingPieChart';
 import ExpenseTransaction from '../../components/Dashboard/ExpenseTransaction';
 import AllTransaction from '../../components/Dashboard/AllTransaction';
-import Last30DaysExpenses from '../../components/Dashboard/last30DaysExpenses';
+import Last30DaysExpenses from '../../components/Dashboard/Last30DaysExpenses';
 import RecentIncomeWithCharts from '../../components/Dashboard/RecentIncomeWithCharts';
 import RecentIncome from '../../components/Dashboard/RecentIncome';
 
