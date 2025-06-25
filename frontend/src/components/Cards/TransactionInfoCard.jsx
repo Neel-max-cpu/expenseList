@@ -1,13 +1,13 @@
-/* eslint-disable no-unused-vars */
 import { addThousandsSeparator } from '@/utils/helper';
 import React from 'react'
+import { FaRegEdit } from 'react-icons/fa';
 
 //icons
 import { LuUtensils, LuTrendingUp, LuTrendingDown, LuTrash2 } from 'react-icons/lu';
 // import { LuUtensils } from "react-icons/lu";
 
 
-const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn, onDelete }) => {
+const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn, hideEditBtn, onDelete, onEdit }) => {
 
   const getAmountStyles = ()=>{
     return type === 'income' ? "bg-green-50 text-green-500" : "bg-red-50 text-red-500";
@@ -36,11 +36,18 @@ const TransactionInfoCard = ({ title, icon, date, amount, type, hideDeleteBtn, o
         </div>
         
         <div className="flex items-center gap-2">
+          {!hideEditBtn && (
+            <button className="text-gray-400 hover:-translate-y-[3px] duration-300 hover:text-green-600 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onClick={onEdit}>
+              <FaRegEdit  size={18}/>
+            </button>
+          )}
+
           {!hideDeleteBtn && (
             <button className="text-gray-400 hover:-translate-y-[3px] duration-300 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer" onClick={onDelete}>
               <LuTrash2 size={18}/>
             </button>
           )}
+          
 
           {/* amount */}
           <div className={`flex items-center gap-2 px-3 py-1.5 rounded-md ${getAmountStyles()}`}>

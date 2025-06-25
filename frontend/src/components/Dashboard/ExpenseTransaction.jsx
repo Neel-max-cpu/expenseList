@@ -24,6 +24,7 @@ const ExpenseTransaction = ({transactions, onSeeMore}) => {
                     amount={expense.amount}
                     type="expense"
                     hideDeleteBtn
+                    hideEditBtn
                 />
             ))}
         </div>

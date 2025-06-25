@@ -9,12 +9,16 @@ import AddIncomeForm from '../../components/Income/AddIncomeForm';
 import toast from 'react-hot-toast';
 import IncomeList from '../../components/Income/IncomeList';
 import DeleteAlert from '../../components/DeleteAlert';
+import EditIncomeForm from '@/components/Income/EditIncomeForm';
 
 const Income = () => {
   useUserAuth();
   const [incomeData, setIncomeData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
+  const [openEditModal, setOpenEditModal] = useState({show: false, data:null});
+  const [editFormData, setEditFormData] = useState(null);
+  
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
     show:false,
     data:null,
@@ -81,6 +85,12 @@ const Income = () => {
   };
 
 
+  //edit income
+  const handleEditIncome = async ()=>{
+
+  }
+
+
   //delete income
   const deleteIncome = async (id)=>{
     try {
@@ -145,10 +155,13 @@ const Income = () => {
             onDelete={(id)=>{
               setOpenDeleteAlert({show: true, data:id});
             }}
+            onEdit = {(id)=>{
+              const incomeToEdit = incomeData.find((item)=>item._id === id);
+              setEditFormData(incomeToEdit);
+              setOpenEditModal({show: true, data:id});
+            }}
             onDownload={handleDownloadIncomeDetails}
           />
-
-
 
         </div>
 
@@ -158,6 +171,20 @@ const Income = () => {
           title="Add Income"
         >
           <AddIncomeForm onAddIncome={handleAddIncome} />
+        </Modal>
+
+        <Modal
+          isOpen={openEditModal.show}
+          onClose={()=>{
+            setOpenEditModal({show:false, data:null});
+            setEditFormData(null);
+          }}
+          title="Edit Income"
+        >
+          <EditIncomeForm 
+            initialValues={editFormData}
+            onEditIncome={handleEditIncome}            
+          />
         </Modal>
 
 
