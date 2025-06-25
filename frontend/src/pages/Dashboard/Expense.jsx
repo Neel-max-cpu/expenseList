@@ -9,12 +9,18 @@ import Modal from '../../components/Modal';
 import AddExpenseForm from '../../components/Expense/AddExpenseForm';
 import ExpenseList from '../../components/Expense/ExpenseList';
 import DeleteAlert from '../../components/DeleteAlert';
+import EditExpenseForm from '@/components/Expense/EditExpenseForm';
 
 const Expense = () => {
     useUserAuth();
     const [expenseData, setExpenseData] = useState([]);
     const [loading, setLoading] = useState(false);
     const [openAddExpenseModal, setOpenAddExpenseModal] = useState(false);
+    const [openEditModal, setOpenEditModal] = useState({show:false, data:null});
+    const [editFormData, setEditFormData] = useState(null);
+    
+    
+    
     const [openDeleteAlert, setOpenDeleteAlert] = useState({
       show:false,
       data:null,
@@ -80,6 +86,42 @@ const Expense = () => {
   };
 
 
+  //edit expesense
+  const handleEditExpense = async (udpdatedExpense)=>{
+    const {_id, category, amount, date, icon} = udpdatedExpense;
+
+    // validatino
+    if(!category.trim()){
+      toast.error("Category is required!");
+      return;
+    }
+
+    if(!amount || isNaN(amount) || Number(amount)<=0){
+      toast.error("Amount should be valid number greater than 0!");
+      return;
+    }
+
+    if(!date){
+      toast.error("Date is required");
+      return;
+    }
+
+    try {
+      await axiosInstance.put(API_PATHS.EXPENSE.EDIT_EXPENSE(_id), {
+        category, 
+        amount, 
+        date, 
+        icon,
+      });
+      setOpenEditModal({show:false, data:null});
+      toast.success("Expense Edited Successfully!");
+      fetchExpenseDetails();
+    } catch (error) {
+      console.log("Error editing expense: ", error.response?.data.message || error.message);
+      toast.error("Something went wrong please try again!");
+    }
+  };
+
   //delete expense
   const deleteExpense = async (id)=>{
     try {
@@ -140,6 +182,11 @@ const Expense = () => {
           <ExpenseList
             transactions={expenseData}
             onDelete={(id)=>setOpenDeleteAlert({show:true, data:id})}
+            onEdit = {(id)=>{
+              const expenseToEdit = expenseData.find((item)=>item._id === id);
+              setEditFormData(expenseToEdit);
+              setOpenEditModal({show:true, data:id});
+            }}
             onDownload={handleDownloadExpenseDetails}
           />
         </div>
@@ -150,6 +197,20 @@ const Expense = () => {
           title = "Add Expense"
         >
           <AddExpenseForm onAddExpense={handleAddExpense} />
+        </Modal>
+
+        <Modal
+          isOpen={openEditModal.show}
+          onClose={()=>{
+            setOpenEditModal({show:false, data:null});
+            setEditFormData(null);
+          }}
+          title="Edit Expense"
+        >
+          <EditExpenseForm
+            initialValues={editFormData}
+            onEditExpense={handleEditExpense}
+          />
         </Modal>
 
         <Modal

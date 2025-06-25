@@ -90,17 +90,22 @@ const Login = () => {
 
           <button className="btn-primary" type="submit">LOGIN</button>
 
-          <p className="text-[13px] text-slate-400 mt-3">
-            Don't have an account?{" "}
-            <Link className="font-medium text-primary underline" to="/signup">
-              SignUp
-            </Link>
-          </p>
+          <div className="flex gap-3">
+            <p className="text-[13px] text-slate-400 mt-3">
+              Don't have an account?{" "}
+              <Link className="font-medium text-primary underline" to="/signup">
+                SignUp
+              </Link>
+            </p>
+            <p className="text-[13px] text-slate-400 mt-3">
+              Forgot your password?{" "}
+              <Link className="font-medium text-primary underline" to="/forgot">
+                Change Password
+              </Link>
+            </p>
+          </div>
 
         </form>
-
-
-
       </div>
     </AuthLayout>
   );

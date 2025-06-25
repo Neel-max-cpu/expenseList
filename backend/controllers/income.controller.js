@@ -43,6 +43,35 @@ export async function getAllIncome(req, res) {
     }
 }
 
+export async function editIncome(req,res){
+    const userId = req.user.id;
+    try {
+        const particularIncome = await Income.findById(req.params.id);
+        if(!particularIncome){
+            return res.status(400).json({message: "No Income found with that Id!"});
+        }
+
+        if(particularIncome.userId.toString() !== userId){
+            return res.json(403).json({message: "Unauthorized!"});
+        }
+
+        const {icon, source, amount, date} = req.body;
+
+        //update fields
+        particularIncome.icon = icon || particularIncome.icon;
+        particularIncome.source = source || particularIncome.source;
+        particularIncome.amount = amount || particularIncome.amount;
+        particularIncome.date = date || particularIncome.date;
+
+        const updateIncome = await particularIncome.save();
+
+        return res.status(200).json(updateIncome);
+
+    } catch (error) {
+        return res.status(500).json({message:"Internal server error!"});
+    }
+}
+
 // delete income source
 export async function deleteIncome(req, res) {
     const userId = req.user.id; 

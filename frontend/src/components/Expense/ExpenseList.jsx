@@ -3,7 +3,7 @@ import React from 'react'
 import { LuDownload } from 'react-icons/lu'
 import TransactionInfoCard from '../Cards/TransactionInfoCard'
 
-const ExpenseList = ({transactions, onDelete, onDownload}) => {
+const ExpenseList = ({transactions, onDelete, onEdit, onDownload}) => {
   return (
      <div className='card'>
         <div className="flex items-center justify-between">
@@ -24,6 +24,7 @@ const ExpenseList = ({transactions, onDelete, onDownload}) => {
                     amount={expense.amount}
                     type="expense"
                     onDelete={()=>onDelete(expense._id)}
+                    onEdit={()=>onEdit(expense._id)}
                 />
             ))}
         </div>

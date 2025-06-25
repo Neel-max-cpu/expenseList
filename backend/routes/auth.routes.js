@@ -1,6 +1,6 @@
 import express from 'express';
 
-import {registerUser, loginUser, getUserInfo} from './../controllers/auth.controller.js'
+import {registerUser, loginUser, getUserInfo, forgetUser} from './../controllers/auth.controller.js'
 import protect from '../middleware/auth.middleware.js'
 import upload from '../middleware/upload.middleware.js';
 
@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+router.put("/forgetpass", forgetUser);
 router.get('/getUser', protect, getUserInfo);
 
 router.post("/upload-image", upload.single("image"), (req, res)=>{

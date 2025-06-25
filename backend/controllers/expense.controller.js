@@ -29,6 +29,35 @@ export async function addExpense(req, res) {
     }
 }
 
+// edit expense
+export async function editExpense(req, res){
+    const userId = req.user.id;
+    try {
+        const particularExpense = await Expense.findById(req.params.id);
+        if(!particularExpense){
+            return res.status(400).json({message:"No Expense found with that Id!"});            
+        }
+
+        if(particularExpense.userId.toString() !== userId){
+            return res.status(403).json({message:"Unauthorized!"});
+        }
+
+        const {icon, category, amount, date} = req.body;
+
+        //update fields
+        particularExpense.icon = icon || particularExpense.icon;
+        particularExpense.category = category || particularExpense.category;
+        particularExpense.amount = amount || particularExpense.amount;
+        particularExpense.date = date || particularExpense.date;
+
+        const updateExpense = await particularExpense.save();
+
+        return res.status(200).json(updateExpense);
+    } catch (error) {
+        return res.status(500).json({message:"Internal server Error!"});
+    }
+}
+
 // get all expense category
 export async function getAllExpense(req, res) {
     const userId = req.user.id;

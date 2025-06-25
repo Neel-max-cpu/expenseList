@@ -21,7 +21,7 @@ const AllTransaction = ({montlySummary, onSeeIncome, onSeeExpense}) => {
     
     
   return (
-    <div className='card'>
+    <div className='card-alltrans'>
         <div className="flex items-center justify-between">
             <h5 className='text-lg font-semibold'>All Transaction</h5>
             <div className="flex space-x-2">

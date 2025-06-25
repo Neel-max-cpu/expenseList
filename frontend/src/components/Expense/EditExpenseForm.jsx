@@ -1,11 +1,11 @@
+import moment from 'moment';
 import React, { useEffect, useState } from 'react'
 import EmojiPickerPopup from '../EmojiPickerPopup';
 import Input from '../Inputs/Input';
-import moment from 'moment';
 
-const EditIncomeForm = ({onEditIncome, initialValues }) => {
+const EditExpenseForm = ({initialValues, onEditExpense}) => {
     const [formData, setFormData] = useState({
-        source:"",
+        category:"",
         amount:"",
         date:"",
         icon:"",
@@ -15,18 +15,17 @@ const EditIncomeForm = ({onEditIncome, initialValues }) => {
       if(initialValues){
         setFormData({
             ...initialValues,
-            date: initialValues.date? moment(initialValues.date).format("YYYY-MM-DD") : "",
+            date: initialValues? moment(initialValues.date).format("YYYY-MM-DD"):""
         });
       }
     }, [initialValues])
     
     const handleSubmit = ()=>{
-        onEditIncome(formData);
+        onEditExpense(formData);
     }
 
-
     const handleChange = (key,value) => setFormData({...formData, [key]:value});
-
+    
   return (
     <div>
 
@@ -36,10 +35,10 @@ const EditIncomeForm = ({onEditIncome, initialValues }) => {
         />
 
         <Input
-            value={formData.source}
-            onChange={({target})=>handleChange("source", target.value)}
-            label="Income Source"
-            placeholder="Freelance, Salary, etc"
+            value={formData.category}
+            onChange={({target})=>handleChange("category", target.value)}
+            label="Expense Category"
+            placeholder="Rent, Groceries, etc"
             type="text"
         />
 
@@ -65,11 +64,11 @@ const EditIncomeForm = ({onEditIncome, initialValues }) => {
                 className="add-btn-fill"
                 onClick={handleSubmit}
             >
-                Edit Income
+                Edit Expense
             </button>
         </div>
     </div>
   )
 }
 
-export default EditIncomeForm
+export default EditExpenseForm

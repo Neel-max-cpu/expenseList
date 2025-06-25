@@ -45,6 +45,37 @@ export async function registerUser(req, res) {
     }
 }
 
+//forget password
+export async function forgetUser(req,res){
+    const {email, password, confirmPassword} = req.body;
+
+    // validation check for missing fields
+    if(!email || !password || !confirmPassword){
+        return res.status(400).json({message:"All Fields are required"});        
+    }
+
+    if(password !== confirmPassword){
+        return res.status(400).json({message:"password and confirm password are not same!"});
+    }
+
+    try {
+        const existingUser = await User.findOne({email});
+        if(!existingUser){
+            return res.status(400).json({message:"User with that email doesn't exists!"});
+        }
+
+        existingUser.password = password;
+        await existingUser.save();
+
+        return res.status(200).json({message:"Password Updated successfully!"});
+    } catch (error) {
+        res.status(500).json({
+            message:"Error updating user's password",
+            error:err.message
+        });
+    }
+}
+
 // login user
 export async function loginUser(req, res) {
     const {email, password} = req.body;

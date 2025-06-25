@@ -17,6 +17,8 @@ export const validateEmail = (email)=>{
 
 export const validatePass = (password) => password.length >= 6;
 
+export const validateCpass = (confirmPassword, password) => password === confirmPassword;
+
 
 export const getInitials = (name)=>{
     if(!name) return "";

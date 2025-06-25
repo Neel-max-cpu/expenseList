@@ -86,9 +86,40 @@ const Income = () => {
 
 
   //edit income
-  const handleEditIncome = async ()=>{
+  const handleEditIncome = async (updatedIncome)=>{
+    const {_id, source, amount, date, icon} = updatedIncome;
 
-  }
+    // validation
+    if(!source.trim()){
+      toast.error("Source is Required!");
+      return;
+    }
+
+    if(!amount || isNaN(amount) || Number(amount)<=0){
+      toast.error("Amount should be valid number greater than 0!");
+      return;
+    }
+
+    if(!date){
+      toast.error("Date is required!");
+      return;
+    }
+
+    try {
+      await axiosInstance.put(API_PATHS.INCOME.EDIT_INCOME(_id), {
+        source,
+        amount, 
+        date, 
+        icon,
+      });
+      setOpenEditModal({show:false, data:null});
+      toast.success("Income Edited Successfully!");
+      fetchIncomeDetails();
+    } catch (error) {
+      console.log("Error editing income: ", error.response?.data.message || error.message);
+      toast.error("Something is wrong please try again!");
+    }
+  };
 
 
   //delete income
