@@ -2,8 +2,8 @@ import axios from 'axios';
 import {BASE_URL} from '../utils/apiPaths.js';
 
 const axiosInstance = axios.create({
-    // baseURL: BASE_URL,
-    baseURL: "https://expenselist.onrender.com",
+    baseURL: BASE_URL,
+    // baseURL: "https://expenselist.onrender.com",
     timeout: 10000,
     headers:{
         "Content-Type": "application/json",

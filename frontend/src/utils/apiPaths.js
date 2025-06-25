@@ -1,4 +1,8 @@
 export const BASE_URL = "http://localhost:5001";
+const BASE_URL =
+  import.meta.env.MODE === "development"
+    ? "http://localhost:5001"
+    : "https://expenselist.onrender.com";
 
 export const API_PATHS = {
     AUTH:{
