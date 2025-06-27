@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react'
 
 import { LuUser, LuUpload, LuTrash2 } from "react-icons/lu";
+import { MdOutlineEdit } from "react-icons/md";
 
-const ProfilePhotoSelector = ({image, setImage}) => {
+const ProfilePhotoSelector = ({image, setImage, buttonOnly = false, onImageSelect}) => {
 
     const inputRef = useRef(null);
     const [previewUrl, setPreviewUrl] = useState(null);
@@ -16,6 +17,7 @@ const ProfilePhotoSelector = ({image, setImage}) => {
             // generate the preview of the image
             const preview = URL.createObjectURL(file);
             setPreviewUrl(preview);
+            onImageSelect && onImageSelect(file); 
             
         }
     };
@@ -28,6 +30,27 @@ const ProfilePhotoSelector = ({image, setImage}) => {
     const onChooseFile = ()=>{
         inputRef.current.click();
     };
+
+    if (buttonOnly) {
+        return (
+            <>
+            <input
+                type="file"
+                accept="image/*"
+                ref={inputRef}
+                onChange={handleImageChange}
+                className="hidden"
+            />
+            <button
+                type="button"
+                onClick={onChooseFile}
+                className="w-8 h-8 bg-primary hover:cursor-pointer text-white rounded-full flex items-center justify-center !hover:bg-red-700"
+            >
+                <MdOutlineEdit />
+            </button>
+            </>
+        );
+    }
 
 
     return (

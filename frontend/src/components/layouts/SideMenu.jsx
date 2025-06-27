@@ -1,12 +1,21 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { SIDE_MENU_DATA } from "../../utils/data.js";
 import { UserContext } from "../../context/userContext.jsx";
 import { useNavigate } from "react-router-dom";
 import defaultPic from '../../assets/images/profilePic.png'
 import CharAvatar from "../Cards/CharAvatar.jsx";
+import ProfilePhotoSelector from "../Inputs/ProfilePhotoSelector.jsx";
+import uploadImage from "@/utils/uploadImage.js";
+import axiosInstance from "@/utils/axiosInstance.js";
+import { API_PATHS } from "@/utils/apiPaths.js";
+import toast from "react-hot-toast";
 
 const SideMenu = ({ activeMenu }) => {
-  const { user, clearUser } = useContext(UserContext);
+  const { user, clearUser, updateUser  } = useContext(UserContext);
+
+  const [profilePic, setProfilePic] = useState(null);
+  const [loading, setLoading] = useState(false);
+  
 
   const navigate = useNavigate();
 
@@ -18,6 +27,30 @@ const SideMenu = ({ activeMenu }) => {
     navigate(route);
   };
 
+  const handlePicEdit = async (file)=>{
+    if(loading || !file) return;
+    setLoading(true);
+  
+    try {
+      const imgUploadRes = await uploadImage(file);
+      const profileImgUrl = imgUploadRes.imageUrl || "";
+      
+      const response = await axiosInstance.put(API_PATHS.IMAGE.EDIT_IMAGE,{
+        profileImgUrl,
+      })
+      
+      updateUser({ ...user, profileImgUrl });
+      toast.success("Profile pic updated successfully!");
+    } catch (error) {
+      console.error("Error uploding the pic!", error);
+      setLoading(false);
+      toast.error("Something is wrong when donwloading, please try again!");
+    } finally{
+      setLoading(false);
+    }
+  }
+
+
   const handleLogout = () => {
     localStorage.clear();
     clearUser();
@@ -26,8 +59,14 @@ const SideMenu = ({ activeMenu }) => {
 
   return (
     <div className="w-64 h-[calc(100vh-61px)] bg-white shadow-lg border-r border-gray-200/50 p-5 sticky top-[61px] z-20">
-      <div className="flex flex-col items-center justify-center gap-3 mt-3 mb-7">
-        {user?.profileImgUrl ? (
+      <div className="flex flex-col items-center relative justify-center gap-3 mt-3 mb-7">
+        {profilePic ? (
+          <img
+            src={URL.createObjectURL(profilePic)}
+            alt="Profile Preview"
+            className="w-20 h-20 rounded-full object-cover"
+          />
+        ) : user?.profileImgUrl ? (
           <img
             src={user?.profileImgUrl || defaultPic}
             // src={defaultPic}            
@@ -42,6 +81,14 @@ const SideMenu = ({ activeMenu }) => {
             style="text-2xl"
           />
         )}
+         <div className="absolute bottom-7 right-16">
+          <ProfilePhotoSelector
+            image={profilePic}
+            setImage={setProfilePic}
+            buttonOnly={true}
+            onImageSelect={handlePicEdit}
+          />
+        </div>
 
         <h5 className="text-gray-950 font-medium leading-6">{user?.fullName || ""}</h5>
       </div>

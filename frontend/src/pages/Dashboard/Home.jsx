@@ -42,7 +42,7 @@ const Home = () => {
       );
 
       if(response.data){
-        console.log("✅ Dashboard data fetched:", response.data);
+        // console.log("✅ Dashboard data fetched:", response.data);
         setDashboardData(response.data);
       }
     } catch (error) {
@@ -60,7 +60,7 @@ const Home = () => {
       const response = await axiosInstance.get(`${API_PATHS.DASHBOARD.GET_MONTHLY_SUMMARY}`);
 
       if(response.data){
-        console.log("✅ Dashboard montly summary:", response.data);
+        // console.log("✅ Dashboard montly summary:", response.data);
         setMontlySummary(response.data);
       }
     } catch (error) {
