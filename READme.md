@@ -1,12 +1,14 @@
 # ✨ Full Stack Realtime Chat App - Social🌏 ✨
 
 ## Check the video for the brief of the project without running here  -> [Link](https://youtu.be/ky3Ii6v74fU) ⭐
+## Deployed Link  -> [Link](https://expense-list-x4sz.vercel.app/login) ⭐
 
-![Demo App Image 1](https://github.com/Neel-max-cpu/fullstack-chat-app/blob/main/frontend/public/1.png?raw=true)
-![Demo App Image 2](https://github.com/Neel-max-cpu/fullstack-chat-app/blob/main/frontend/public/2.png?raw=true)
-![Demo App Image 3](https://github.com/Neel-max-cpu/fullstack-chat-app/blob/main/frontend/public/3.png?raw=true)
-![Demo App Image 4](https://github.com/Neel-max-cpu/fullstack-chat-app/blob/main/frontend/public/4.png?raw=true)
-![Demo App Image 5](https://github.com/Neel-max-cpu/fullstack-chat-app/blob/main/frontend/public/5.png?raw=true)
+![Demo App Image 1](/frontend/public/1.png)
+![Demo App Image 2](/frontend/public/2.png)
+![Demo App Image 3](/frontend/public/3.png)
+![Demo App Image 4](/frontend/public/4.png)
+![Demo App Image 5](/frontend/public/5.png)
+
 
 
 
