@@ -85,6 +85,7 @@ const Income = () => {
       fetchIncomeDetails();
     } catch (error) {
       console.log("Error adding income: ", error.response?.data.message || error.message);
+      setLoading2(false);
       toast.error("Something is wrong please try again!");
     } finally{
       setLoading2(false);
@@ -126,6 +127,7 @@ const Income = () => {
       fetchIncomeDetails();
     } catch (error) {
       console.log("Error editing income: ", error.response?.data.message || error.message);
+      setLoading2(false);
       toast.error("Something is wrong please try again!");
     } finally{
       setLoading2(false);
@@ -144,6 +146,7 @@ const Income = () => {
       fetchIncomeDetails();
     } catch (error) {
       console.error("Error deleting the income!", error.response?.data?.message || error.message);
+      setLoading2(false);
       toast.error("Something is wrong please try again!");
     } finally{
       setLoading2(false);
@@ -174,6 +177,7 @@ const Income = () => {
       toast.success("Income List Downloaded Successfully!");
     } catch (error) {
       console.error("Error downloading the income!", error);
+      setLoading2(false);
       toast.error("Something is wrong when donwloading, please try again!");
     } finally{
       setLoading2(false);

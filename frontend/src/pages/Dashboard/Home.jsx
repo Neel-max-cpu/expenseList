@@ -47,6 +47,7 @@ const Home = () => {
       }
     } catch (error) {
       console.log("Something went wrong. Please try again.", error)
+      setLoading(false);
     } finally{
       setLoading(false);
     }
@@ -64,6 +65,7 @@ const Home = () => {
       }
     } catch (error) {
       console.log("Something went wrong. Please try again.", error)
+      setLoading(false);
     } finally{
       setLoading(false);
     }

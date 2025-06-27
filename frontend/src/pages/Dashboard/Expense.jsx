@@ -86,6 +86,7 @@ const Expense = () => {
       fetchExpenseDetails();
     } catch (error) {
       console.log("Error adding expense: ", error.response?.data.message || error.message);
+      setLoading2(false);
       toast.error("Something is wrong please try again!");
     } finally{
       setLoading2(false);
@@ -128,6 +129,7 @@ const Expense = () => {
       fetchExpenseDetails();
     } catch (error) {
       console.log("Error editing expense: ", error.response?.data.message || error.message);
+      setLoading2(false);
       toast.error("Something went wrong please try again!");
     } finally{
       setLoading2(false);
@@ -145,6 +147,7 @@ const Expense = () => {
       fetchExpenseDetails();
     } catch (error) {
       console.error("Error deleting the expense!", error.response?.data?.message || error.message);
+      setLoading2(false);
       toast.error("Something is wrong please try again!");
     } finally{
       setLoading2(false);
