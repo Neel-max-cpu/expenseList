@@ -30,17 +30,20 @@ const Login = () => {
 
     if(!validateEmail(email)){
       setError("Please a valid Email!");
+      setLoading(false);
       return;
     }
 
     if(!validatePass(password)){
       setError("Password must be atleast 6 Characters long!");
+      setLoading(false);
       return;      
     }
 
 
     if(!password){
       setError("Please enter the password!");
+      setLoading(false);
       return;
     }
 

@@ -60,16 +60,19 @@ const Expense = () => {
     //validation check
     if(!category.trim()){
       toast.error("Category is required!");
+      setLoading2(false);
       return;
     }
 
     if(!amount || isNaN(amount) || Number(amount)<=0){
       toast.error("Amount should be valid number greater than 0!");
+      setLoading2(false);
       return;
     }
 
     if(!date){
       toast.error("Date is required!");
+      setLoading2(false);
       return;
     }
 
@@ -104,16 +107,19 @@ const Expense = () => {
     // validatino
     if(!category.trim()){
       toast.error("Category is required!");
+      setLoading2(false);
       return;
     }
 
     if(!amount || isNaN(amount) || Number(amount)<=0){
       toast.error("Amount should be valid number greater than 0!");
+      setLoading2(false);
       return;
     }
 
     if(!date){
       toast.error("Date is required");
+      setLoading2(false);
       return;
     }
 

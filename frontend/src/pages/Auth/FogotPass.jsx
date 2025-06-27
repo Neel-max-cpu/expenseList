@@ -26,17 +26,20 @@ const FogotPass = () => {
       e.preventDefault();
 
       if(!validateEmail(email)){
-        setError("Please enter a valid Email!")
+        setError("Please enter a valid Email!");
+        setLoading(false);
         return;
       }
 
       if(!validatePass(password)){
         setError("Password must be alteast 6 Characters long!");
+        setLoading(false);
         return;
       }
 
       if(!validateCpass(confirmPassword, password)){
         setError("Password and Confirm password are not same!");
+        setLoading(false);
         return;
       }
 

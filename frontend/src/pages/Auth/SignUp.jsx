@@ -39,16 +39,19 @@ const SignUp = () => {
 
     if(!fullName){
       setError("Please enter your name!");
+      setLoading(false);
       return;
     }
 
     if(!validateEmail(email)){
       setError("Please a valid email address!");
+      setLoading(false);
       return;
     }
 
     if(!validatePass(password)){
       setError("Password must be atleast 6 Characters long!");
+      setLoading(false);
       return;      
     }
 
@@ -56,6 +59,7 @@ const SignUp = () => {
     // todo -- password min of 6 len
     if(!password){
       setError("Please enter a valid password!");
+      setLoading(false);
       return;
     }
 
