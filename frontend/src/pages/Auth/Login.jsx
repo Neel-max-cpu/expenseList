@@ -7,11 +7,15 @@ import { validateEmail, validatePass } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
+  const [loading, setLoading] = useState(false);
+  
   
   const {updateUser} = useContext(UserContext);
 
@@ -20,6 +24,8 @@ const Login = () => {
   
   // handle login function
   const handleLogin = async(e)=>{
+    if(loading) return;
+    setLoading(true);
     e.preventDefault();
 
     if(!validateEmail(email)){
@@ -51,7 +57,10 @@ const Login = () => {
       if(token){
         updateUser(user)
         localStorage.setItem("token", token);
-        navigate("/dashboard");
+        toast.success("Log in success, redirecting to dashboard...");
+        setTimeout(() => {
+          navigate("/dashboard");        
+        }, 1500);
       }
     } catch (error) {
       if(error.response && error.response.data.message){
@@ -59,6 +68,8 @@ const Login = () => {
       } else{
         setError("Something went wrong. Please try again!");
       }
+    } finally{
+      setLoading(false);
     }
   }
 
@@ -88,7 +99,12 @@ const Login = () => {
 
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p> }
 
-          <button className="btn-primary" type="submit">LOGIN</button>
+          <button 
+            className={`btn-primary ${loading? "opacity-50 cursor-not-allowed" : ""}`}
+            type="submit"
+          >
+            LOGIN
+          </button>
 
           <div className="flex gap-3">
             <p className="text-[13px] text-slate-400 mt-3">

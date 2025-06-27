@@ -13,12 +13,16 @@ const FogotPass = () => {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(null);    
+    const [loading, setLoading] = useState(false);
+    
     
     const {updateUser} = useContext(UserContext);
 
     const navigate = useNavigate();
 
     const handleForgetPassword = async(e)=>{
+      if(loading) return;
+      setLoading(true);
       e.preventDefault();
 
       if(!validateEmail(email)){
@@ -57,6 +61,8 @@ const FogotPass = () => {
         } else{
           setError("Something went wrong. Please try again!");
         }
+      } finally{
+        setLoading(false);
       }
     }
 
@@ -93,7 +99,12 @@ const FogotPass = () => {
 
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p> }
 
-          <button className="btn-primary" type="submit">Update</button>
+          <button 
+            className={`btn-primary ${loading? "opacity-50 cursor-not-allowed":""}`} 
+            type="submit"
+          >
+            Update
+          </button>
 
           <div className="flex gap-3">
             <p className="text-[13px] text-slate-400 mt-3">

@@ -25,6 +25,17 @@ export const getInitials = (name)=>{
 
     const words = name.split(" ");
     let initials = "";
+    if(words.length===1){
+      let name = words[0];
+      if(name.length >=2) {
+        initials=name[0]+name[1];        
+      }
+      else {
+        initials = name[0];
+      }
+      return initials.toUpperCase();
+    }
+
     for(let i=0; i<Math.min(words.length, 2); i++){
         initials += words[i][0]
     }

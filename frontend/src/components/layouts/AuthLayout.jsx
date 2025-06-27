@@ -2,6 +2,7 @@ import React from 'react'
 // import CARD_2 from '../../assets/images/card2.png';
 import CARD_2 from '../../assets/images/card3_new.png';
 import MY_CARD from '../../assets/images/my-card.png';
+import MY_CARD2 from '../../assets/images/my-card2.png';
 import { LuTrendingUpDown } from "react-icons/lu";
 
 const AuthLayout = ({children}) => {
@@ -24,7 +25,7 @@ const AuthLayout = ({children}) => {
                 <StatsInfoCard
                     icon={<LuTrendingUpDown/>}
                     label = "Track your Income & Expeses"
-                    value="430,000"
+                    value="4,30,000"
                     color="bg-primary"            
                 />
 
@@ -32,7 +33,7 @@ const AuthLayout = ({children}) => {
 
 
             {/* <img src={CARD_2} className='w-64 lg:w-[90%] absolute bottom-10 shadow-lg shadow-blue-400/15' /> */}
-            <img src={MY_CARD} className='w-64 lg:w-[90%] absolute rounded-xl border border-gray-200 bottom-10 shadow-lg shadow-blue-400/15' />
+            <img src={MY_CARD2} className='w-64 lg:w-[90%] absolute rounded-xl border border-gray-200 bottom-10 shadow-lg shadow-blue-400/15' />
         </div>
 
     </div>
@@ -50,7 +51,7 @@ const StatsInfoCard = ({icon, label, value, color}) =>{
             </div>
             <div>
             <div className="text-xs text-gray-500 mb-1">{label}</div>
-            <span className="text-[20px] text-black ">${value}</span>
+            <span className="text-[20px] text-black ">Rs. {value}</span>
             </div>
         </div>
     )

@@ -45,7 +45,7 @@ const ProfilePhotoSelector = ({image, setImage}) => {
                     <div className=" w-20 h-20 flex items-center justify-center bg-purple-100 rounded-full relative">
                         <LuUser className='text-4xl text-blue-400'/>
                         <button 
-                            className="w-8 h-8 flex items-center justify-center bg-primary rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer" 
+                            className="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full absolute -bottom-1 -right-1 hover:cursor-pointer" 
                             type='button' 
                             onClick={onChooseFile}
                         >

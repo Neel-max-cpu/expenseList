@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
-import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import {ChartTooltip, ChartContainer, ChartTooltipContent, ChartLegend } from "../ui/chart";
 import { addThousandsSeparator } from "@/utils/helper";
 import CustomLegend from "./CustomLegend";
@@ -17,6 +17,21 @@ const chartConfig = {
 }
 
 const CustomAllTransactionChart = ({data}) => {
+
+        const [isMobile, setIsMobile] = useState(false);
+
+        useEffect(() => {
+          const checkScreen = ()=> setIsMobile(window.innerWidth < 768);
+          checkScreen();
+          window.addEventListener("resize", checkScreen);
+        
+          return () => {
+            window.removeEventListener("resize", checkScreen);
+          }
+        }, [])
+        
+        
+
         const CustomTooltip = ({active, payload}) =>{
         if(active && payload && payload.length){            
             let bal = addThousandsSeparator(payload[0].payload.income - payload[0].payload.expense);
@@ -57,15 +72,17 @@ const CustomAllTransactionChart = ({data}) => {
     <div className="">
 
       <ChartContainer config={chartConfig} className="h-[400px] w-full">
-        <BarChart accessibilityLayer data={data}>
-          <CartesianGrid vertical={false} />
-          <XAxis dataKey="month" tick={{fontSize:12, fontWeight:700, fill: "#000000"}}   className="[&_text]:!fill-black" stroke='none' />
-          <YAxis tick={{fontSize:12, fill: "#000000", fontWeight:700}}   className="[&_text]:!fill-black"  stroke='none'/>
-          <ChartTooltip content={<CustomTooltip />} />
-          <ChartLegend content={<CustomLegend />} />
-          <Bar stackId="a" dataKey="income" fill="#875cf5" radius={4} />
-          <Bar stackId="a" dataKey="expense" fill="#cfbefb" radius={4} />          
-        </BarChart>
+        {/* <ResponsiveContainer width="100%" height="400px"> */}
+          <BarChart accessibilityLayer data={data}>
+            <CartesianGrid vertical={false} />
+            <XAxis dataKey="month" tick={{fontSize:12, fontWeight:700, fill: "#000000"}}   className="[&_text]:!fill-black" stroke='none' />
+            <YAxis tick={{fontSize:12, fill: "#000000", fontWeight:700}}   className="[&_text]:!fill-black"  stroke='none'/>
+            <ChartTooltip content={<CustomTooltip />} />
+            <ChartLegend content={<CustomLegend />} />
+            <Bar dataKey="income" fill="#7DDF64" radius={4} />
+            <Bar dataKey="expense" fill="#CC2936" radius={4} />          
+          </BarChart>
+        {/* </ResponsiveContainer> */}
       </ChartContainer>
     </div>
   );

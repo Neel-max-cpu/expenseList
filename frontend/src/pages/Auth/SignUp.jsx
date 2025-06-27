@@ -9,6 +9,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
 import uploadImage from "../../utils/uploadImage";
+import toast from "react-hot-toast";
 
 const SignUp = () => {
 
@@ -16,6 +17,9 @@ const SignUp = () => {
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+  
 
   const [error, setError] = useState(null);
 
@@ -26,6 +30,9 @@ const SignUp = () => {
 
   // signup Form Submit ---
   const handleSignUp = async (e) => {
+    if(loading) return;
+
+    setLoading(true);
     e.preventDefault();
     
     let profileImgUrl = "";
@@ -76,7 +83,10 @@ const SignUp = () => {
       if(token){
         localStorage.setItem("token", token);
         updateUser(user);
-        navigate("/dashboard");
+        toast.success("Sign up success, redirecting to dashboard...");
+        setTimeout(() => {
+          navigate("/dashboard");        
+        }, 1500);
       }
     } catch (error) {
       if(error.response && error.response.data.message){
@@ -85,6 +95,8 @@ const SignUp = () => {
       else{
         setError("Something went wrong. Please Try again!");
       }
+    } finally{
+      setLoading(false);
     }
   }
 
@@ -137,7 +149,12 @@ const SignUp = () => {
 
           {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
 
-          <button className="btn-primary" type="submit">SiGN UP</button>
+          <button 
+            className={`btn-primary ${loading? "opacity-50 cursor-not-allowed" : ""}`}
+            type="submit"
+          >
+            SiGN UP
+          </button>
 
           <p className="text-[13px] text-slate-400 mt-3">
             Already have an account?{" "}

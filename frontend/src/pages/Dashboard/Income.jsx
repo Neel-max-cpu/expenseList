@@ -18,6 +18,9 @@ const Income = () => {
   const [openAddIncomeModal, setOpenAddIncomeModal] = useState(false);
   const [openEditModal, setOpenEditModal] = useState({show: false, data:null});
   const [editFormData, setEditFormData] = useState(null);
+
+  const [loading2, setLoading2] = useState(false);
+  
   
   const [openDeleteAlert, setOpenDeleteAlert] = useState({
     show:false,
@@ -49,6 +52,8 @@ const Income = () => {
 
   //handle add income
   const handleAddIncome = async (income)=>{
+    if(loading2) return;
+    setLoading2(true);
     const {source, amount, date, icon} = income;
 
     //validation check
@@ -81,12 +86,16 @@ const Income = () => {
     } catch (error) {
       console.log("Error adding income: ", error.response?.data.message || error.message);
       toast.error("Something is wrong please try again!");
+    } finally{
+      setLoading2(false);
     }
   };
 
 
   //edit income
   const handleEditIncome = async (updatedIncome)=>{
+    if(loading2) return;
+    setLoading2(true);
     const {_id, source, amount, date, icon} = updatedIncome;
 
     // validation
@@ -118,12 +127,16 @@ const Income = () => {
     } catch (error) {
       console.log("Error editing income: ", error.response?.data.message || error.message);
       toast.error("Something is wrong please try again!");
+    } finally{
+      setLoading2(false);
     }
   };
 
 
   //delete income
   const deleteIncome = async (id)=>{
+    if(loading2) return;
+    setLoading2(true);
     try {
       await axiosInstance.delete(API_PATHS.INCOME.DELETE_INCOME(id));
       setOpenDeleteAlert({show:false, data:null});
@@ -132,11 +145,15 @@ const Income = () => {
     } catch (error) {
       console.error("Error deleting the income!", error.response?.data?.message || error.message);
       toast.error("Something is wrong please try again!");
+    } finally{
+      setLoading2(false);
     }
   };
 
   //handle download income details
   const handleDownloadIncomeDetails = async()=>{
+    if(loading2) return;
+    setLoading2(true);
     try {
       const response = await axiosInstance.get(
         API_PATHS.INCOME.DOWNLOAD_INCOME,
@@ -158,6 +175,8 @@ const Income = () => {
     } catch (error) {
       console.error("Error downloading the income!", error);
       toast.error("Something is wrong when donwloading, please try again!");
+    } finally{
+      setLoading2(false);
     }
   };
   
@@ -201,7 +220,7 @@ const Income = () => {
           onClose={()=>setOpenAddIncomeModal(false)}
           title="Add Income"
         >
-          <AddIncomeForm onAddIncome={handleAddIncome} />
+          <AddIncomeForm onAddIncome={handleAddIncome} loading={loading2} />
         </Modal>
 
         <Modal
@@ -214,7 +233,8 @@ const Income = () => {
         >
           <EditIncomeForm 
             initialValues={editFormData}
-            onEditIncome={handleEditIncome}            
+            onEditIncome={handleEditIncome}  
+            loading={loading2}          
           />
         </Modal>
 
@@ -227,6 +247,7 @@ const Income = () => {
           <DeleteAlert
             content="Are you sure you want to delete this income detail?"
             onDelete={()=>deleteIncome(openDeleteAlert.data)}
+            loading={loading2}
           />
         </Modal>
 

@@ -19,6 +19,8 @@ const Expense = () => {
     const [openEditModal, setOpenEditModal] = useState({show:false, data:null});
     const [editFormData, setEditFormData] = useState(null);
     
+    const [loading2, setLoading2] = useState(false);
+    
     
     
     const [openDeleteAlert, setOpenDeleteAlert] = useState({
@@ -50,6 +52,9 @@ const Expense = () => {
 
   //handle add expense
   const handleAddExpense = async (expense)=>{
+    if(loading2) return;
+    
+    setLoading2(true);
     const {category, amount, date, icon} = expense;
 
     //validation check
@@ -82,12 +87,17 @@ const Expense = () => {
     } catch (error) {
       console.log("Error adding expense: ", error.response?.data.message || error.message);
       toast.error("Something is wrong please try again!");
+    } finally{
+      setLoading2(false);
     }
   };
 
 
   //edit expesense
   const handleEditExpense = async (udpdatedExpense)=>{
+    if(loading2) return;
+
+    setLoading2(true);
     const {_id, category, amount, date, icon} = udpdatedExpense;
 
     // validatino
@@ -119,11 +129,15 @@ const Expense = () => {
     } catch (error) {
       console.log("Error editing expense: ", error.response?.data.message || error.message);
       toast.error("Something went wrong please try again!");
+    } finally{
+      setLoading2(false);
     }
   };
 
   //delete expense
   const deleteExpense = async (id)=>{
+    if(loading2) return;
+    setLoading2(true);
     try {
       await axiosInstance.delete(API_PATHS.EXPENSE.DELETE_EXPENSE(id));
       setOpenDeleteAlert({show:false, data:null});
@@ -132,6 +146,8 @@ const Expense = () => {
     } catch (error) {
       console.error("Error deleting the expense!", error.response?.data?.message || error.message);
       toast.error("Something is wrong please try again!");
+    } finally{
+      setLoading2(false);
     }
   };
   
@@ -196,7 +212,7 @@ const Expense = () => {
           onClose={()=>setOpenAddExpenseModal(false)}
           title = "Add Expense"
         >
-          <AddExpenseForm onAddExpense={handleAddExpense} />
+          <AddExpenseForm onAddExpense={handleAddExpense} loading={loading2} />
         </Modal>
 
         <Modal
@@ -210,6 +226,7 @@ const Expense = () => {
           <EditExpenseForm
             initialValues={editFormData}
             onEditExpense={handleEditExpense}
+            loading={loading2}
           />
         </Modal>
 
@@ -221,6 +238,7 @@ const Expense = () => {
           <DeleteAlert
             content="Are you sure you want to delete this Expense detail?"
             onDelete={()=>deleteExpense(openDeleteAlert.data)}
+            loading={loading2}
           />
         </Modal>
 

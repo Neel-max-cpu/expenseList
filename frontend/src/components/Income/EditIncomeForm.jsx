@@ -3,7 +3,7 @@ import EmojiPickerPopup from '../EmojiPickerPopup';
 import Input from '../Inputs/Input';
 import moment from 'moment';
 
-const EditIncomeForm = ({onEditIncome, initialValues }) => {
+const EditIncomeForm = ({onEditIncome, initialValues, loading }) => {
     const [formData, setFormData] = useState({
         source:"",
         amount:"",
@@ -62,10 +62,11 @@ const EditIncomeForm = ({onEditIncome, initialValues }) => {
         <div className="flex justify-end mt-6">
             <button 
                 type='button'   
-                className="add-btn-fill"
+                className={`add-btn-fill ${loading?"opacity-50 cursor-not-allowed" :""}`}
                 onClick={handleSubmit}
+                disabled={loading}
             >
-                Edit Income
+                {loading? "Saving...":"Edit Income"}
             </button>
         </div>
     </div>

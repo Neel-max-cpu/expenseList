@@ -12,7 +12,7 @@ import {
     Cell,
 } from 'recharts'
 
-const CustomBarChart = ({data}) => {
+const CustomBarChart = ({data, last30}) => {    
     //altenate colors
     const getBarColor=(index)=>{
         return index%2===0? "#875cf5" : "#cfbefb";
@@ -44,8 +44,11 @@ const CustomBarChart = ({data}) => {
             <ResponsiveContainer width="100%" height={300}>                
                 <BarChart data={data}>
                     <CartesianGrid stroke='none'/>
-
-                    <XAxis dataKey="month" tick={{fontSize:12, fill: "#555"}} stroke='none' />
+                    {last30? (
+                        <XAxis dataKey="category" tick={{fontSize:12, fill: "#555"}} stroke='none' />
+                    ):(
+                        <XAxis dataKey="month" tick={{fontSize:12, fill: "#555"}} stroke='none' />
+                    )}
                     <YAxis tick={{fontSize:12, fill: "#555"}}  stroke='none'/>
 
                     <Tooltip content= {<CustomTooltip />}/>

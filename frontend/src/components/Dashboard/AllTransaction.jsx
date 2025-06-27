@@ -11,7 +11,7 @@ const AllTransaction = ({montlySummary, onSeeIncome, onSeeExpense}) => {
     useEffect(() => {
       if(montlySummary){
         const result = prepareMonthlySummary(montlySummary);
-        console.log("📊 Chart Data:", result);
+        // console.log("📊 Chart Data:", result);
         // console.log("monthly summary", montlySummary);
         setChartData(result);
       }
