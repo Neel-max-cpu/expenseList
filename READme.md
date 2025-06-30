@@ -1,4 +1,4 @@
-# ✨ Full Stack Realtime Chat App - Social🌏 ✨
+# ✨ Full Stack Expense List App ✨
 
 ## Check the video for the brief of the project without running here  -> [Link](https://youtu.be/ky3Ii6v74fU) ⭐
 ## Deployed Link  -> [Link](https://expense-list-x4sz.vercel.app/login) ⭐
